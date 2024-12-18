@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Tambahkan tugas ke daftar
     document.querySelector('form').onsubmit = (e) => {
         e.preventDefault();
+        
         const task = taskInput.value.trim();
         if (task) {
             const li = document.createElement('li');
@@ -24,10 +25,25 @@ document.addEventListener('DOMContentLoaded', function () {
             tasksList.appendChild(li);
             taskInput.value = '';
             submitButton.disabled = true;
-            
+            tasksList.appendChild(li); 
+
+             // Tambahkan tombol hapus
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = '❌';
+            deleteButton.style.marginLeft = '10px';
+            deleteButton.onclick = function () {
+                removeTask(task); // Hapus tugas dari localStorage
+                li.remove(); // Hapus elemen <li> dari DOM
+            };
+            li.appendChild(deleteButton);
+            saveTask(task);
         }
         // Tampilkan tugas yang tersimpan
-        saveTask(task);
+        //
+        //saveTask(task);
+        //savedTasks.forEach(task => addTask(task));
+        
+        
         return false; // Mencegah refresh halaman
     };
 
